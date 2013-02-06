@@ -1,4 +1,16 @@
 InitiativeTracker::Application.routes.draw do
+  resources :players
+
+
+  resources :monster_templates
+
+
+  resources :battles
+
+
+  resources :monsters
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

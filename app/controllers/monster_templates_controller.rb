@@ -1,0 +1,2 @@
+class MonsterTemplatesController < ApplicationController
+end
