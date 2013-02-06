@@ -1,16 +1,15 @@
 InitiativeTracker::Application.routes.draw do
   resources :players
 
-
   resources :monster_templates
 
-
+  #Battle routes
   resources :battles
-
+  post "/battles/edit_name" => 'battles#edit_name', :as => :edit_battle_name
 
   resources :monsters
 
-
+  root :to => 'battles#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
