@@ -7,8 +7,24 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<div id="battles_index_body">
+		<div id="battles_index_banner">
+			Initiative Tracker
+		</div>
+		<ul id="banner_button_row">
+			<li><%= link_to "New Battle", new_battle_path, :id => "new_battle_button", :class => "banner_button" %></li>
+			<% unless current_page?(root_path) %>
+				<li><%= link_to "Battle List", root_path, :id => "battle_list_button", :class => "banner_button" %></li>
+			<% end %>
+			<% unless current_page?(monster_templates_path) %>
+				<li><%= link_to "Monster List", monster_templates_path, :id => "monster_list_button", :class => "banner_button" %></li>
+			<% end %>
+			<% unless current_page?(players_path) %>
+				<li><%= link_to "Player List", players_path, :id => "player_list_button", :class => "banner_button" %></li>
+			<% end %>
+		</ul>
 
-<%= yield %>
-
+		<%= yield %>
+	</div>
 </body>
 </html>

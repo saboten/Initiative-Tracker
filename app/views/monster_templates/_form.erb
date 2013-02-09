@@ -1,0 +1,35 @@
+<%= form_for @monster_template do |f|%>
+	<table>
+		<tr>
+			<td colspan="3"><%= f.label :name %> <%= f.text_field :name %> </td>
+		</tr>
+		<tr>
+			<td><%= f.label :max_hp %> <%= f.text_field :max_hp, :size => 4 %></td>
+			<td><%= f.label :ac %> <%= f.text_field :ac, :size => 2 %></td>
+			<td><%= f.label :fort %> <%= f.text_field :fort, :size => 2 %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :ref %> <%= f.text_field :ref, :size => 2 %></td>
+			<td><%= f.label :will %> <%= f.text_field :will, :size => 2 %></td>
+			<td><%= f.label :init_mod %> <%= f.text_field :init_mod, :size => 2 %></td>
+		</tr>
+		<tr>
+			<td colspan="3"><%= f.label :stat_block %> <%= f.file_field :stat_block %> </td>
+		</tr>
+	</table>
+	<div id="new_attack_template">
+  	<%= f.fields_for(:attacks, @new_attack, :child_index => "new_attack") do |a| %>
+  	  <table>
+      	<tr>
+      		<td colspan="2"> <%= a.label :name %> <%= a.text_field :name%></td>
+      	</tr>
+      	<tr>
+      		<td><%= a.label :attack_mod %> <%= a.text_field :attack_mod, :size => 2%></td>
+      		<td><%= a.label :damage_roll %> <%= a.text_field :damage_roll, :size => 15 %></td>
+      	</tr>
+      </table>
+    <% end %>
+  </div>
+	<p><%= link_to "Add Attack", "#", :id => "new_attack_button" %><p>
+	<%= f.submit "Create"%>
+<% end %>

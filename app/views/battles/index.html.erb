@@ -1,9 +1,5 @@
-<div class="battles_index_body">
-<h1 class="battles_title">Initiative Tracker</h1>
-<%= link_to "New Battle", new_battle_path %>
-<%= link_to "Monster List", monster_templates_path%>
-<h2>Saved Battles</h2>
-<div id="saved_battles">
+<div id="saved_battles_title" class="section_title">Saved Battles</div>
+<div id="saved_battles" class="section_content">
 	<%= render :partial => "battle_list"%>
 </div>
-</div>
+

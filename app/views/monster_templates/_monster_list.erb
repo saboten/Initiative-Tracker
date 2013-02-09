@@ -1,0 +1,9 @@
+<% if @monsters.empty? %>
+	No Monsters
+<% else %>
+	<ul class="monster_list">
+		<% @monsters.each do |m| %>
+			<li><%= link_to m.name, monster_template_path(:id => m.id) %></li>
+		<% end %>
+	</ul>
+<% end %>

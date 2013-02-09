@@ -1,0 +1,13 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
+  
+$ ->
+  $('#new_attack_button').click( (event) ->
+    new_id = new Date().getTime();
+    regexp = new RegExp("new_attack", "g")
+    content = $('#new_attack_template').html();
+    $('#new_attack_button').before(content.replace(regexp, new_id));
+    event.preventDefault();
+  );
+  
