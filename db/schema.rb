@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208211453) do
+ActiveRecord::Schema.define(:version => 20130209191826) do
 
   create_table "attacks", :force => true do |t|
     t.string   "name"
     t.string   "damage_roll"
     t.integer  "attack_mod"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "monster_template_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "battles", :force => true do |t|
@@ -26,6 +27,11 @@ ActiveRecord::Schema.define(:version => 20130208211453) do
     t.text     "initiative_order"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "battles_players", :id => false, :force => true do |t|
+    t.integer "battle_id"
+    t.integer "player_id"
   end
 
   create_table "monster_templates", :force => true do |t|
@@ -45,16 +51,12 @@ ActiveRecord::Schema.define(:version => 20130208211453) do
   end
 
   create_table "monsters", :force => true do |t|
-    t.string   "name"
     t.string   "descriptor"
     t.text     "notes"
-    t.integer  "ac"
-    t.integer  "fort"
-    t.integer  "ref"
-    t.integer  "will"
     t.integer  "current_hp"
-    t.integer  "max_hp"
     t.integer  "initiative"
+    t.integer  "battle_id"
+    t.integer  "monster_template_id"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
     t.string   "stat_block_file_name"

@@ -3,7 +3,22 @@
 <% else %>
 	<ul class="monster_list">
 		<% @monsters.each do |m| %>
-			<li><%= link_to m.name, monster_template_path(:id => m.id) %></li>
+			<li>
+				<%= link_to m.name, edit_monster_template_path(m), :class => "edit_link" %>
+				<%= link_to "-", m, :confirm => 'Are you sure?', :method => :delete, :class => "delete_link" %>
+				<div class="monster_template_details">
+					<%= image_tag m.stat_block.url, :class => "stat_block_preview"%>
+					<div class="monster_data_preview">
+						HP: <%= m.max_hp%><br/>
+						AC: <%= m.ac%><br/>
+						Fort: <%= m.fort%><br/>
+						Ref: <%= m.ref%><br/>
+						Will: <%= m.will%><br/>
+						Init: <%= m.init_mod%><br/>
+						Attacks: <%= m.attacks.length %>
+					</div>
+				</div>
+			</li>
 		<% end %>
 	</ul>
 <% end %>

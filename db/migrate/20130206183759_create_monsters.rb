@@ -1,9 +1,9 @@
 class CreateMonsters < ActiveRecord::Migration
   def change
     create_table :monsters do |t|
-      t.string :name, :descriptor
+      t.string :descriptor
       t.text :notes
-      t.integer :ac, :fort, :ref, :will, :current_hp, :max_hp, :initiative
+      t.integer :current_hp, :initiative, :battle_id, :monster_template_id
       t.timestamps
     end
   end

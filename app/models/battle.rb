@@ -1,7 +1,7 @@
 class Battle < ActiveRecord::Base
   attr_accessible :name, :initiative_order
   has_many :monsters
-  has_many :players
+  has_and_belongs_to_many :players
   
   default_scope order('created_at DESC')
 end

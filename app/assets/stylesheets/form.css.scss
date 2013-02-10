@@ -1,3 +1,5 @@
+@import "rounded";
+
 form {
 	margin-left: auto;
 	margin-right: auto;
@@ -5,6 +7,7 @@ form {
 }
 form td {
     text-align: right;
+    padding: 5px;
 }
 label {
     font-size: 1.5em;
@@ -13,5 +16,35 @@ label {
 }
 input {
     font-size: 1.5em;
-    margin-bottom: 10px;
+}
+div#error_explanation {
+    margin-bottom: 20px;
+    color: #FFF;
+    text-align: center;
+    border: 1px dotted #FFF;
+    padding: 10px;
+}
+div#error_explanation h2 {
+    margin-top: 0px;
+}
+table.attack_table {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: rgba(30,30,30,0.7);
+    vertical-align: top;
+    @include rounded;
+}
+a#new_attack_button {
+    display: block;
+    height: 40px;
+    color: #FFF;
+    font-weight: bold;
+    font-size: 2em;
+    text-decoration: none;
+    text-align: center;
+    background-color: rgba(30,30,30,0.7);
+    margin-top: 10px;
+    @include rounded;
 }

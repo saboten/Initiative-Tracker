@@ -18,7 +18,7 @@ ul.monster_list li {
     margin-bottom: 15px;
 }
 ul.monster_list a {
-    display: block;
+    display: inline-block;
     text-align: center;
     height: 50px;
     line-height: 50px;
@@ -26,5 +26,32 @@ ul.monster_list a {
     color: #FFF;
     text-decoration: none;
     background-color: rgba(30,30,30,0.7);
+    vertical-align: top;
     @include rounded;
 }
+ul.monster_list a.edit_link {
+    width: 90%;
+}
+ul.monster_list a.delete_link {
+    width: 9%;
+    font-weight: bold;
+    font-size: 3em;
+}
+ul.monster_list div.monster_template_details {
+    color: #FFF;
+    background-color: rgba(30,30,30,0.7);
+    width: 98%;
+    padding: 5px;
+    margin-top: 3px;
+    @include rounded;
+}
+img.stat_block_preview {
+    display: inline-block;
+    vertical-align: top;
+}
+div.monster_data_preview {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+

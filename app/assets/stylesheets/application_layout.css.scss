@@ -7,11 +7,8 @@ div#battles_index_body {
     margin-right: auto;
 }
 div#battles_index_banner {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
     background-color: rgba(30,30,30,0.7);
+    width: 100%;
     height: 100px;
     text-align: center;
     line-height: 100px;
@@ -30,10 +27,8 @@ div#battles_index_banner {
                     0 12px 12px rgba(0,0,0,.15);
 }
 ul#banner_button_row {
-    position: absolute;
-    top: 100px;
-    left: 0px;
-    right: 0px;
+    width: 100%;
+    height: 40px;
 }
 ul#banner_button_row li {
     display: inline;
@@ -53,19 +48,22 @@ a.banner_button {
     @include rounded_bottom;
 }
 div.section_title {
-    position: absolute;
-    top: 150px;
-    left: 0px;
-    right: 0px;
+    width: 100%;
     text-align: center;
     font-size: 3em;
     font-weight: bold;
     color: #222;
     text-shadow: 0px 1px 1px #555;
+    margin-top: 15px;
 }
 div.section_content {
-    position: absolute;
-    top: 210px;
-    left: 0px;
-    right: 0px;
+    width: 100%;
+    margin-top: 15px;
+}
+div.flash_messages {
+    color: #FFF;
+    text-align: center;
+    border: 1px dotted #FFF;
+    padding: 10px;
+    margin-top: 15px;
 }
