@@ -1,4 +1,5 @@
 class BattlesController < ApplicationController
+  layout 'battle', :only => :show
   def index
     @battles = Battle.all
   end
@@ -9,7 +10,9 @@ class BattlesController < ApplicationController
   end
   
   def show
+    
     @battle = Battle.find(params[:id])
+    @title = @battle.name
     #TODO Add battle-not-found code here
   end
   

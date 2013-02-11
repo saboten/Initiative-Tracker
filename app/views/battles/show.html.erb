@@ -1,2 +1,19 @@
-<div class="editable_battle_name" id="battle_name_<%=@battle.id%>"><%= @battle.name %></div>
-<%= link_to "Back to battle list", root_path %>
+<div id="left_column">
+	<ul id="initiative_list">
+	  <li>item 1</li>
+	  <li>item 2</li>
+	  <li>item 3</li>
+	</ul>
+</div>
+<div id="center_column">
+	<div class="editable_battle_name" id="battle_name_<%=@battle.id%>"><%= @battle.name %></div>
+	<%= link_to "Back to battle list", root_path %>
+	
+</div>
+<div id="right_column">
+	<ul id="rolls">
+		<li>15</li>
+		<li>63</li>
+		<li>39</li>
+	</ul>
+</div>

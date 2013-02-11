@@ -13,4 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.jeditable
+//= require jquery.hotkeys
+//= require jquery-ui
 //= require_tree .
