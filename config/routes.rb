@@ -6,6 +6,9 @@ InitiativeTracker::Application.routes.draw do
   #Battle routes
   resources :battles
   post "/battles/edit_name" => 'battles#edit_name', :as => :edit_battle_name
+  post "/battles/:id/add_monsters" => 'battles#add_monsters', :as => :add_monsters
+  post "/battles/:id/sync_order" => 'battles#sync_order', :as => :sync_order
+  post "/battles/:id/update_active_creature" => 'battles#update_active_creature', :as => :update_active_creature
 
   resources :monsters
 

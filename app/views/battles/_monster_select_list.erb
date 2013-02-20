@@ -1,0 +1,15 @@
+<%= form_tag add_monsters_path(:id => @battle.id), :id => "monster_select_form", :remote => true, "data-type" => "html" do %>
+<div id="monster_select_viewing_box">
+  <ul id="monster_select_list">
+    <% @monsters.each do |m|%>
+      <li>
+        <div class="monster_name"><%= m.name %></div>
+        <div class="monster_quantity"><%= text_field_tag "monsters[#{m.id}]", "0"%></div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<div id="monster_select_controls">
+  <a href="#" id="add_monsters_button">Add</a>
+</div>
+<% end %>

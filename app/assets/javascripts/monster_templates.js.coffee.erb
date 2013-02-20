@@ -4,10 +4,10 @@
   
 $ ->
   $('#new_attack_button').click( (event) ->
-    new_id = new Date().getTime();
+    new_id = new Date().getTime()
     regexp = new RegExp("new_attack", "g")
-    content = $('#new_attack_template').html();
-    $('#new_attack_button').before(content.replace(regexp, new_id));
-    event.preventDefault();
-  );
+    content = $('#new_attack_template').html()
+    $('#new_attack_button').before(content.replace(regexp, new_id))
+    event.preventDefault()
+  )
   

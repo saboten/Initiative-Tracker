@@ -40,9 +40,32 @@ $radius: 5px;
     @include rounded_bottom_right;
     @include rounded_top_right;
 }
+@mixin rounded_left {
+    @include rounded_bottom_left;
+    @include rounded_top_left;
+}
 @mixin rounded {
     @include rounded_bottom_left;
     @include rounded_bottom_right;
     @include rounded_top_left;
     @include rounded_top_right;
+}
+@mixin button_properties {
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.2), 1px 1px 0px rgba(0, 0, 0, 0.6);
+    background-color: rgba(30,30,30,0.7);
+    color: #FFF;
+    text-align: center;
+    text-decoration: none;
+}
+@mixin dark_round_button {
+    @include rounded;
+    @include button_properties;
+}
+@mixin dark_round_button_left {
+    @include rounded_left;
+    @include button_properties;
+}
+@mixin dark_round_button_right {
+    @include rounded_right;
+    @include button_properties;
 }

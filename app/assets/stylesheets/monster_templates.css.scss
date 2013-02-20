@@ -4,10 +4,7 @@ a#new_monster_template_button {
     position: absolute;
     right: 0px;
     width: 100px;
-    color: #FFF;
-    text-decoration: none;
-    background-color: rgba(30,30,30,0.7);
-    @include rounded;
+    @include dark_round_button;
 }
 ul.monster_list {
     width: 80%;
@@ -23,27 +20,23 @@ ul.monster_list a {
     height: 50px;
     line-height: 50px;
     font-size: 2em;
-    color: #FFF;
-    text-decoration: none;
-    background-color: rgba(30,30,30,0.7);
     vertical-align: top;
-    @include rounded;
 }
 ul.monster_list a.edit_link {
     width: 90%;
+    @include dark_round_button_left;
 }
 ul.monster_list a.delete_link {
     width: 9%;
     font-weight: bold;
     font-size: 3em;
+    @include dark_round_button_right;
 }
 ul.monster_list div.monster_template_details {
-    color: #FFF;
-    background-color: rgba(30,30,30,0.7);
     width: 98%;
     padding: 5px;
     margin-top: 3px;
-    @include rounded;
+    @include dark_round_button;
 }
 img.stat_block_preview {
     display: inline-block;
@@ -54,4 +47,3 @@ div.monster_data_preview {
     vertical-align: top;
     margin-left: 10px;
 }
-

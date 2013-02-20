@@ -1,19 +1,35 @@
 <div id="left_column">
-	<ul id="initiative_list">
-	  <li>item 1</li>
-	  <li>item 2</li>
-	  <li>item 3</li>
-	</ul>
+	<%= render "initiative_order"%>
 </div>
 <div id="center_column">
-	<div class="editable_battle_name" id="battle_name_<%=@battle.id%>"><%= @battle.name %></div>
-	<%= link_to "Back to battle list", root_path %>
-	
+  <%= content_tag "div", 
+      @battle.name, 
+      :id => "battle_name_" + @battle.id.to_s, 
+      :class => "editable_battle_name", 
+      :data => {:url => edit_battle_name_path}
+  %>
+  <ul id="battle_controls">
+    <li><%= link_to "Back", root_path %></li>
+    <li><a href="#">Add Monster</a></li>
+    <li><a href="#">Add Player</a></li>
+    <li><a href="#">Order</a></li>
+    <li><a href="#">Remove Dead</a></li>
+  </ul>
+  <div id="dice_controls">
+    <%= text_field_tag "roll_text", ""%>
+    <a href="#" id="roll_button" class="dice_button">Roll</a>
+    <a href="#" id="d20button" class="dice_button">1d20</a>
+  </div>
+	<div id="selected_monster">
+	  Selected Monster
+	</div>
 </div>
 <div id="right_column">
-	<ul id="rolls">
-		<li>15</li>
-		<li>63</li>
-		<li>39</li>
-	</ul>
+  <div id="roll_container">
+	  <ul id="rolls">
+	  </ul>
+	</div>
+</div>
+<div id="monster_select" style="display:none;">
+  <%= render "monster_select_list" %>
 </div>

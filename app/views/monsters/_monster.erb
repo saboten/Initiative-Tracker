@@ -1,0 +1,13 @@
+<div id="selected_monster_full_name">
+  <%= @monster.full_name %>
+</div>
+<table id="selected_monster_attacks">
+  <% @monster.attacks.each do |a|%>
+    <tr>
+      <td class="attack_name"><%= a.name %></td>
+      <td class="attack_mod_cell"><%= link_to "+" + a.attack_mod.to_s, "#", :class => "attack_button", :data => {:attack_mod => a.attack_mod}%></td>
+      <td class="damage_cell"><%= link_to a.damage_roll, "#", :class => "damage_button"%></td>
+    </tr>
+  <% end %>
+</table>
+<%= image_tag @monster.stat_block.url, :class => "stat_block"%>

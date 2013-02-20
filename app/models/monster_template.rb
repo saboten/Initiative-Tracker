@@ -9,4 +9,13 @@ class MonsterTemplate < ActiveRecord::Base
   
   validates :ac, :fort, :ref, :will, :max_hp, :init_mod, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
   validates :name, :presence => true
+  
+  def create_new_monster(descriptor = "")
+    prng = Random.new
+    monster = Monster.create( :descriptor => descriptor, 
+                              :current_hp => read_attribute(:max_hp), 
+                              :monster_template_id => read_attribute(:id),
+                              :initiative => prng.rand(1..20) + read_attribute(:init_mod))
+    return monster
+  end
 end

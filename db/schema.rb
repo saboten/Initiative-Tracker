@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130209191826) do
+ActiveRecord::Schema.define(:version => 20130208211453) do
 
   create_table "attacks", :force => true do |t|
     t.string   "name"
@@ -24,14 +24,10 @@ ActiveRecord::Schema.define(:version => 20130209191826) do
 
   create_table "battles", :force => true do |t|
     t.string   "name"
+    t.string   "active_creature"
     t.text     "initiative_order"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-  end
-
-  create_table "battles_players", :id => false, :force => true do |t|
-    t.integer "battle_id"
-    t.integer "player_id"
   end
 
   create_table "monster_templates", :force => true do |t|

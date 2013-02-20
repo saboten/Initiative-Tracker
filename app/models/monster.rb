@@ -1,43 +1,19 @@
 class Monster < ActiveRecord::Base
-  attr_accessible :descriptor, :notes, :current_hp, :initiative
+  attr_accessible :descriptor, :notes, :current_hp, :initiative, :monster_template_id
   has_attached_file :stat_block
   belongs_to :battle
   belongs_to :monster_template
+  delegate :name, :max_hp, :ac, :fort, :ref, :will, :stat_block, :attacks, :to => :monster_template, :allow_nil => true
   
-  def max_hp
-    parent_attribute(:max_hp)
+  def full_name
+    template = MonsterTemplate.find(read_attribute(:monster_template_id))
+    name = read_attribute(:descriptor) + " " + template.name
+    name.strip!
+    return name
   end
   
-  def ac
-    parent_attribute(:max_hp)
+  def id_string
+    "creatures-monster_" + read_attribute(:id).to_s
   end
   
-  def fort
-    parent_attribute(:max_hp)
-  end
-  
-  def ref
-    parent_attribute(:max_hp)
-  end
-  
-  def will
-    parent_attribute(:max_hp)
-  end
-  
-  def stat_block
-    parent_attribute(:stat_block)
-  end
-  
-  def attacks
-    parent_attribute(:attacks)
-  end
-  
-  def parent_attribute(attribute)
-    monster_template_id = read_attribute(:monster_template_id)
-    unless monster_template_id.nil?
-      return MonsterTemplate.find(monster_template_id).send(attribute)
-    else
-      return ""
-    end
-  end
 end
