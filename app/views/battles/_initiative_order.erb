@@ -2,30 +2,34 @@
     :id => "initiative_list", 
     :data => {:sync_order_url => sync_order_path(:id => @battle.id),
               :update_active_creature_url => update_active_creature_path(:id => @battle.id),
+              :update_damage_url => update_damage_path(:id => @battle.id),
               :active_creature => @battle.active_creature.nil? ? "none" : @battle.active_creature} do
 %>
   <% @battle.order.each do |creature|%>
     <%= content_tag "li", 
-        :class => (creature.id_string == @battle.active_creature) ? "creature_block active_creature_block" : "creature_block", 
-        :id => creature.id_string,
-        :data => {:url => monster_path(:id => creature.id)} do%>
+        :class => creature_block_class(creature, @battle), 
+        :id => creature_id_string(creature),
+        :data => {:url => monster_path(:id => creature.id), :full_name => creature.full_name} do%>
         <table>
           <tr>
-            <td rowspan="2" class="creature_block_hp"><%=creature.current_hp%></td>
-            <td colspan="4" class="creature_block_full_name">
-              <div class="creature_block_descriptor">
-                <%= creature.descriptor%>
-              </div>
-              <div class="creature_block_name">
-                <%= creature.name%>
-              </div>
-            </td>
+            <%= content_tag "td",
+                creature.current_hp,
+                :rowspan => 2,
+                :class => monster_hp_class(creature),
+                :data => {:target_id => creature_id_string(creature)} 
+            %>
+            <%= content_tag "td",
+                highlight_alias(creature),
+                :colspan => 4,
+                :class => "creature_block_full_name",
+                :data => {:target_id => creature_id_string(creature)}
+            %>
           </tr>
           <tr>
-            <td class="creature_block_defense">AC: <%=creature.ac%></td>
-            <td class="creature_block_defense">Fort: <%=creature.fort%></td>
-            <td class="creature_block_defense">Ref: <%=creature.ref%></td>
-            <td class="creature_block_defense">Will: <%=creature.will%></td>
+            <%= content_tag("td", "AC: #{creature.ac}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Fort: #{creature.fort}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Ref: #{creature.ref}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Will: #{creature.will}", :class => "creature_block_defense")%>
           </tr>
         </table>       
     <% end %>

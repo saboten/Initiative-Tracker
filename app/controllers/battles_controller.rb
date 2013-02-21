@@ -1,4 +1,5 @@
 class BattlesController < ApplicationController
+  helper BattlesHelper
   layout 'battle', :only => :show
   def index
     @battles = Battle.all
@@ -17,7 +18,7 @@ class BattlesController < ApplicationController
   end
   
   def edit_name
-    battle = Battle.find(params[:id].delete("battle_name_"))
+    battle = Battle.find(params[:id])
     battle.name = params[:name]
     battle.save!
     render :text => battle.name
@@ -70,5 +71,17 @@ class BattlesController < ApplicationController
     @battle.active_creature = params[:active_creature]
     @battle.save!
     render :nothing => true
+  end
+  
+  def update_damage
+    @battle = Battle.find(params[:id])
+    damage = params[:damage].to_i
+    params[:creatures].each do |c|
+      monster_id = c.delete("a-z_-")
+      monster = Monster.find(monster_id)
+      monster.current_hp -= damage
+      monster.save!
+    end
+    render :partial => "initiative_order"
   end
 end

@@ -1,4 +1,4 @@
-@import "rounded";
+@import "mixins";
 
 // Index page styles
 ul.battle_list {
@@ -50,6 +50,14 @@ div.editable_battle_name {
     text-shadow: 0px 1px 1px #555;
     text-align: center;
 }
+.edit_battle_name input {
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    @include inset_input;
+    text-align: center;
+}
 ul#battle_controls {
     text-align: center;
 }
@@ -75,12 +83,7 @@ div#dice_controls input {
     width: 60%;
     height: 30px;
     margin-top: 5px;
-    background: rgba(0, 0, 0, 0.2);
-    color: #FFF;
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    @include inset_input;
     vertical-align: middle;
 }
 a.dice_button {
@@ -97,12 +100,7 @@ div#roll_container {
     bottom: 10px;
     right: 10px;
     left: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    color: #FFF;
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    @include inset_input;
 }
 ul#rolls {
     text-align: center;
@@ -112,6 +110,11 @@ ul#rolls li {
     font-weight: bold;
 }
 
+@mixin popup_box {
+    background-image: url(<%= asset_path 'bg.png' %>);
+    box-shadow: 3px 3px 3px #222;
+    border: 1px solid #000;
+}
 //Add monsters styles
 div#monster_select {
     position: fixed;
@@ -119,9 +122,7 @@ div#monster_select {
     bottom: 15%;
     left: 25%;
     right: 25%;
-    background-image: url(<%= asset_path 'bg.png' %>);
-    box-shadow: 3px 3px 3px #222;
-    border: 1px solid #000;
+    @include popup_box
 }
 div#monster_select_viewing_box {
     position: absolute;
@@ -144,9 +145,6 @@ ul#monster_select_list {
 ul#monster_select_list li {
     margin-bottom: 5px;
 }
-ul#monster_select_list .ui-selected {
-    background-color: rgba(30,30,30,0.8);  
-}
 ul#monster_select_list .monster_name {
     display: inline-block;
     height: 40px;
@@ -166,12 +164,7 @@ ul#monster_select_list input {
     width: 70%;
     height: 30px;
     margin-top: 5px;
-    background: rgba(0, 0, 0, 0.2);
-    color: #FFF;
-    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    @include inset_input;
     text-align: center;
 }
 a#add_monsters_button {
@@ -181,6 +174,43 @@ a#add_monsters_button {
     line-height: 50px;
     font-size: 2em;
     @include dark_round_button;
+}
+
+//Add damage styles
+div#add_damage_box {
+    position: fixed;
+    top: 40%;
+    bottom: 40%;
+    left: 33%;
+    right: 33%;
+    @include popup_box
+}
+div#adding_damage_to {
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+}
+div#adding_damage_controls {
+    position: absolute;
+    bottom: 15px;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+}
+a.add_damage_button {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    width: 25%;
+    vertical-align: middle;
+    @include dark_round_button;
+}
+div#adding_damage_controls input {
+    width: 40%;
+    height: 30px;
+    @include inset_input;
+    vertical-align: middle;
+    text-align: center;
 }
 
 //Initiative list styles
@@ -203,6 +233,7 @@ td.creature_block_full_name {
     text-align: left;
     font-size: 0.9em;
     padding-left: 5px;
+    cursor: pointer;
 }
 div.creature_block_descriptor {
     display: inline-block;
@@ -218,6 +249,12 @@ td.creature_block_hp {
     font-weight: bold;
     width: 15%;
     cursor: pointer;
+}
+td.hurt_monster_hp {
+    color: #F00;
+}
+td.dead_monster_hp {
+    color: #000;
 }
 td.creature_block_defense {
     font-size: 0.8em;

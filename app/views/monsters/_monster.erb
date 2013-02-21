@@ -1,6 +1,8 @@
-<div id="selected_monster_full_name">
-  <%= @monster.full_name %>
-</div>
+<%= content_tag "div",
+  @monster.alias,
+  :id => "selected_monster_full_name",
+  :data => {:url => edit_descriptor_path(:id => @monster.id)}
+%>
 <table id="selected_monster_attacks">
   <% @monster.attacks.each do |a|%>
     <tr>

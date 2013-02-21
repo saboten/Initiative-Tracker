@@ -6,7 +6,7 @@
       @battle.name, 
       :id => "battle_name_" + @battle.id.to_s, 
       :class => "editable_battle_name", 
-      :data => {:url => edit_battle_name_path}
+      :data => {:url => edit_battle_name_path(:id => @battle.id)}
   %>
   <ul id="battle_controls">
     <li><%= link_to "Back", root_path %></li>
@@ -21,7 +21,6 @@
     <a href="#" id="d20button" class="dice_button">1d20</a>
   </div>
 	<div id="selected_monster">
-	  Selected Monster
 	</div>
 </div>
 <div id="right_column">
@@ -32,4 +31,7 @@
 </div>
 <div id="monster_select" style="display:none;">
   <%= render "monster_select_list" %>
+</div>
+<div id="add_damage_box" style="display:none;">
+  <%= render "add_damage_box" %>
 </div>

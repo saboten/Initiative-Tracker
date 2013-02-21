@@ -1,4 +1,4 @@
-<%= form_for @monster_template, :html => {:class => "create_form"} do |f|%>
+<%= form_for @monster_template, :html => {:class => "edit_form"} do |f|%>
 	<% if @monster_template.errors.any? %>
     	<div id="error_explanation">
       		<h2><%= pluralize(@monster_template.errors.count, "error") %> prohibited this monster from being saved</h2>
@@ -11,31 +11,31 @@
   	<% end %>
 	<table>
 		<tr>
-			<td colspan="3"><%= f.label :name %> <%= f.text_field :name %> </td>
+			<td colspan="3"><%= f.label :name, :class => "creature_label" %> <%= f.text_field :name, :class => "dark_input" %> </td>
 		</tr>
 		<tr>
-			<td><%= f.label :max_hp %> <%= f.text_field :max_hp, :size => 4 %></td>
-			<td><%= f.label :ac %> <%= f.text_field :ac, :size => 2 %></td>
-			<td><%= f.label :fort %> <%= f.text_field :fort, :size => 2 %></td>
+			<td><%= f.label :max_hp, :class => "creature_label" %> <%= f.text_field :max_hp, :size => 4, :class => "dark_centered_input" %></td>
+			<td><%= f.label :ac, :class => "creature_label" %> <%= f.text_field :ac, :size => 2, :class => "dark_centered_input" %></td>
+			<td><%= f.label :fort, :class => "creature_label" %> <%= f.text_field :fort, :size => 2, :class => "dark_centered_input" %></td>
 		</tr>
 		<tr>
-			<td><%= f.label :ref %> <%= f.text_field :ref, :size => 2 %></td>
-			<td><%= f.label :will %> <%= f.text_field :will, :size => 2 %></td>
-			<td><%= f.label :init_mod %> <%= f.text_field :init_mod, :size => 2 %></td>
+			<td><%= f.label :ref, :class => "creature_label" %> <%= f.text_field :ref, :size => 2, :class => "dark_centered_input" %></td>
+			<td><%= f.label :will, :class => "creature_label" %> <%= f.text_field :will, :size => 2, :class => "dark_centered_input" %></td>
+			<td><%= f.label :init_mod, :class => "creature_label" %> <%= f.text_field :init_mod, :size => 2, :class => "dark_centered_input" %></td>
 		</tr>
 		<tr>
-			<td colspan="3"><%= f.label :stat_block %> <%= f.file_field :stat_block %> </td>
+			<td colspan="3" id="file_input_cell"><%= f.label :stat_block, :class => "creature_label" %> <%= f.file_field :stat_block, :data => {:preview_url  => preview_image_path} %> </td>
 		</tr>
 	</table>
 	<div id="new_attack_template" style="display: none;">
   		<%= f.fields_for(:attacks, @new_attack, :child_index => "new_attack") do |a| %>
   			<table class="attack_table">
 				<tr>
-      				<td colspan="2"> <%= a.label :name %> <%= a.text_field :name%></td>
+      				<td colspan="2"> <%= a.label :name, :class => "attack_label" %> <%= a.text_field :name, :class => "dark_input"%></td>
       			</tr>
       			<tr>
-      				<td><%= a.label :attack_mod, "Attack" %> <%= a.text_field :attack_mod, :size => 2%></td>
-      				<td><%= a.label :damage_roll, "Damage" %> <%= a.text_field :damage_roll, :size => 15 %></td>
+      				<td><%= a.label :attack_mod, "Attack", :class => "attack_label" %> <%= a.text_field :attack_mod, :size => 2, :class => "dark_centered_input"%></td>
+      				<td><%= a.label :damage_roll, "Damage", :class => "attack_label" %> <%= a.text_field :damage_roll, :size => 15, :class => "dark_centered_input" %></td>
       			</tr>
       		</table>
     	<% end %>
@@ -43,14 +43,14 @@
 	<%= f.fields_for(:attacks, @attacks) do |a| %>
 		<table class="attack_table">
 			<tr>
-     				<td colspan="2"> <%= a.label :name %> <%= a.text_field :name%></td>
+     				<td colspan="2"> <%= a.label :name, :class => "attack_label" %> <%= a.text_field :name, :class => "dark_input"%></td>
      			</tr>
      			<tr>
-     				<td><%= a.label :attack_mod, "Attack" %> <%= a.text_field :attack_mod, :size => 2%></td>
-     				<td><%= a.label :damage_roll, "Damage" %> <%= a.text_field :damage_roll, :size => 15 %></td>
+     				<td><%= a.label :attack_mod, "Attack", :class => "attack_label" %> <%= a.text_field :attack_mod, :size => 2, :class => "dark_centered_input"%></td>
+     				<td><%= a.label :damage_roll, "Damage", :class => "attack_label" %> <%= a.text_field :damage_roll, :size => 15, :class => "dark_centered_input" %></td>
      			</tr>
      	</table>
    	<% end %>
 	<p><%= link_to "Add Attack", "#", :id => "new_attack_button" %><p>
-	<%= f.submit "Save", :id => "save_button"%>
+  <%= f.submit "Save", :id => "save_button", :class => "dark_input"%>
 <% end %>

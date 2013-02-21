@@ -1,5 +1,9 @@
-@import "rounded";
-
+@import "mixins";
+@mixin popup_box {
+    background-image: url(<%= asset_path 'bg.png' %>);
+    box-shadow: 3px 3px 3px #222;
+    border: 1px solid #000;
+}
 a#new_monster_template_button {
     position: absolute;
     right: 0px;
@@ -38,9 +42,8 @@ ul.monster_list div.monster_template_details {
     margin-top: 3px;
     @include dark_round_button;
 }
-img.stat_block_preview {
-    display: inline-block;
-    vertical-align: top;
+div#stat_block_preview {
+    text-align: center;
 }
 div.monster_data_preview {
     display: inline-block;

@@ -69,3 +69,11 @@ $radius: 5px;
     @include rounded_right;
     @include button_properties;
 }
+@mixin inset_input {
+    background: rgba(0, 0, 0, 0.2);
+    color: #FFF;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}

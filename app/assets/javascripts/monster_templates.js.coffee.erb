@@ -2,12 +2,27 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
   
-$ ->
-  $('#new_attack_button').click( (event) ->
-    new_id = new Date().getTime()
-    regexp = new RegExp("new_attack", "g")
-    content = $('#new_attack_template').html()
-    $('#new_attack_button').before(content.replace(regexp, new_id))
-    event.preventDefault()
-  )
+$(document).ready ->
+  if $('body.monster_templates_edit').length > 0 or $('body.monster_templates_new').length > 0
+    $('#new_attack_button').click( (event) ->
+      new_id = new Date().getTime()
+      regexp = new RegExp("new_attack", "g")
+      content = $('#new_attack_template').html()
+      $('#new_attack_button').before(content.replace(regexp, new_id))
+      event.preventDefault()
+    )
+    $('#monster_template_stat_block').change( ->
+      file = $('#monster_template_stat_block')[0].files[0]
+      form_data = new FormData()
+      form_data.append('file', file)
+      $.ajax(
+        url: $('#monster_template_stat_block').data('preview-url'),
+        data: form_data,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: (data) ->
+          $('#stat_block_preview').html(data)
+      )
+    )
   

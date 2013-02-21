@@ -1,4 +1,5 @@
 class MonsterTemplatesController < ApplicationController
+  require 'fileutils'
   
   def index
     @monsters = MonsterTemplate.all
@@ -39,5 +40,12 @@ class MonsterTemplatesController < ApplicationController
     @monster_template.destroy
     flash[:notice] = "Successfully destroyed monster"
     redirect_to monster_templates_path
+  end
+  
+  def preview_image
+    tmp = params[:file].tempfile
+    file = File.join("public", "preview_image.png")
+    FileUtils.cp tmp.path, file
+    render :partial => "preview_image"
   end
 end

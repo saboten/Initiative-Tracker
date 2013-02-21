@@ -1,16 +1,23 @@
 InitiativeTracker::Application.routes.draw do
   resources :players
 
+  #Monster Template routes
   resources :monster_templates
-
+  post "/monster_templates/preview_image" => 'monster_templates#preview_image', :as => :preview_image
+  
+  resources :stat_blocks
+  
   #Battle routes
   resources :battles
-  post "/battles/edit_name" => 'battles#edit_name', :as => :edit_battle_name
+  post "/battles/:id/edit_name" => 'battles#edit_name', :as => :edit_battle_name
   post "/battles/:id/add_monsters" => 'battles#add_monsters', :as => :add_monsters
   post "/battles/:id/sync_order" => 'battles#sync_order', :as => :sync_order
   post "/battles/:id/update_active_creature" => 'battles#update_active_creature', :as => :update_active_creature
-
+  post "/battles/:id/update_damage" => 'battles#update_damage', :as => :update_damage
+  
+  #Monster routes
   resources :monsters
+  post "/monsters/:id/edit_descriptor" => 'monsters#edit_descriptor', :as => :edit_descriptor
 
   root :to => 'battles#index'
   # The priority is based upon order of creation:
