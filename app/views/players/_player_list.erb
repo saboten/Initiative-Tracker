@@ -1,0 +1,25 @@
+<% if @players.empty? %>
+	No Players
+<% else %>
+	<ul class="creature_list">
+		<% @players.each do |p| %>
+			<li>
+				<%= link_to p.name, edit_player_path(p), :class => "edit_link" %>
+				<%= link_to "-", p, :confirm => 'Are you sure?', :method => :delete, :class => "delete_link" %>
+				<div class="creature_template_details">
+					<div class="creature_data_preview">
+					  <table>
+					    <tr>
+					      <td>HP: <%= p.max_hp%></td>
+					      <td>AC: <%= p.ac%></td>
+					      <td>Fort: <%= p.fort%></td>
+					      <td>Ref: <%= p.ac%></td>
+					      <td>Will: <%= p.fort%></td>
+					    </tr>
+					  </table>
+					</div>
+				</div>
+			</li>
+		<% end %>
+	</ul>
+<% end %>

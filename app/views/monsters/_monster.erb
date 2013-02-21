@@ -1,14 +1,14 @@
 <%= content_tag "div",
   @monster.alias,
   :id => "selected_monster_full_name",
-  :data => {:url => edit_descriptor_path(:id => @monster.id)}
+  :data => {:url => edit_alias_path(:id => @monster.id)}
 %>
 <table id="selected_monster_attacks">
   <% @monster.attacks.each do |a|%>
     <tr>
       <td class="attack_name"><%= a.name %></td>
       <td class="attack_mod_cell"><%= link_to "+" + a.attack_mod.to_s, "#", :class => "attack_button", :data => {:attack_mod => a.attack_mod}%></td>
-      <td class="damage_cell"><%= link_to a.damage_roll, "#", :class => "damage_button"%></td>
+      <td class="damage_cell"><%= link_to(a.damage_roll, "#", :class => "damage_button") unless a.damage_roll == ""%></td>
     </tr>
   <% end %>
 </table>

@@ -13,6 +13,7 @@ class BattlesController < ApplicationController
   def show
     @battle = Battle.find(params[:id])
     @monsters = MonsterTemplate.all
+    @players = Player.all
     @title = @battle.name
     #TODO Add battle-not-found code here
   end
@@ -33,7 +34,7 @@ class BattlesController < ApplicationController
         template = MonsterTemplate.find(k)
         if value == 1
           new_monster = template.create_new_monster()
-          @battle.initiative_order.push(new_monster.id_string)
+          @battle.initiative_order.push("monster_" + new_monster.id.to_s)
           @battle.monsters.push(new_monster)
         else
           value.times do |i|
@@ -49,13 +50,29 @@ class BattlesController < ApplicationController
             when 4
               new_monster = template.create_new_monster("Black")
             end
-            @battle.initiative_order.push(new_monster.id_string)
+            @battle.initiative_order.push("monster_" + new_monster.id.to_s)
             @battle.monsters.push(new_monster)
           end
         end
       end
     end
-    @battle.save!
+    @battle.save
+    render :partial => "initiative_order"
+  end
+  
+  def add_players
+    @battle = Battle.find(params[:id])
+    players = params[:players]
+    players.each_pair do |k,v|
+      value = v.to_i
+      if value > 0
+        player = Player.find(k)
+        player.initiative = value
+        player.save
+        @battle.initiative_order.push("player_" + player.id.to_s)
+      end
+    end
+    @battle.save
     render :partial => "initiative_order"
   end
   
@@ -77,11 +94,18 @@ class BattlesController < ApplicationController
     @battle = Battle.find(params[:id])
     damage = params[:damage].to_i
     params[:creatures].each do |c|
-      monster_id = c.delete("a-z_-")
-      monster = Monster.find(monster_id)
-      monster.current_hp -= damage
-      monster.save!
+      creature = get_creature_from_id(c)
+      creature.current_hp -= damage
+      creature.save!
     end
     render :partial => "initiative_order"
+  end
+  
+  private
+  
+  def get_creature_from_id(id_string)
+    id_string = id_string.split('-').last
+    return Monster.find(id_string.split('_').last) if id_string.split('_').first == "monster"
+    return Player.find(id_string.split('_').last) if id_string.split('_').first == "player"
   end
 end

@@ -1,0 +1,7 @@
+<div id="players_title" class="section_title">
+  Players
+  <%= link_to "+", new_player_path, :id => "new_player_button", :class => "new_creature_button"%>
+</div>
+<div id="players" class="section_content">
+  <%= render :partial => "player_list"%>
+</div>

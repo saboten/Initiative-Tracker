@@ -1,14 +1,14 @@
 <% if @monsters.empty? %>
 	No Monsters
 <% else %>
-	<ul class="monster_list">
+	<ul class="creature_list">
 		<% @monsters.each do |m| %>
 			<li>
 				<%= link_to m.name, edit_monster_template_path(m), :class => "edit_link" %>
 				<%= link_to "-", m, :confirm => 'Are you sure?', :method => :delete, :class => "delete_link" %>
-				<div class="monster_template_details">
+				<div class="creature_template_details">
 					<%= image_tag m.stat_block.url, :class => "stat_block_preview"%>
-					<div class="monster_data_preview">
+					<div class="creature_data_preview">
 						HP: <%= m.max_hp%><br/>
 						AC: <%= m.ac%><br/>
 						Fort: <%= m.fort%><br/>

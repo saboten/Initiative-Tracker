@@ -1,0 +1,16 @@
+<%= form_tag add_players_path(:id => @battle.id), :id => "player_select_form", :class => "creature_select_form", :remote => true, "data-type" => "html" do %>
+<div id="player_select_viewing_box" class="creature_select_viewing_box">
+  <ul id="player_select_list" class="creature_select_list">
+    <% @players.each do |p|%>
+      <li>
+        <div class="creature_name"><%= p.name %></div>
+        <div class="creature_quality"><%= text_field_tag "players[#{p.id}]", "0", :class => "creature_quality_text player_initiative_text"%></div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<div id="player_select_controls" class="creature_select_controls">
+  <a href="#" id="add_players_button" class="add_creatures_button">Add</a>
+  <a href="#" id="hide_add_players_button" class="hide_add_creatures_button">Cancel</a>
+</div>
+<% end %>

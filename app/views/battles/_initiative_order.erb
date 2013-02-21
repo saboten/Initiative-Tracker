@@ -9,21 +9,16 @@
     <%= content_tag "li", 
         :class => creature_block_class(creature, @battle), 
         :id => creature_id_string(creature),
-        :data => {:url => monster_path(:id => creature.id), :full_name => creature.full_name} do%>
+        :data => creature_list_item_data(creature) do%>
         <table>
           <tr>
             <%= content_tag "td",
                 creature.current_hp,
                 :rowspan => 2,
-                :class => monster_hp_class(creature),
+                :class => creature_hp_class(creature),
                 :data => {:target_id => creature_id_string(creature)} 
             %>
-            <%= content_tag "td",
-                highlight_alias(creature),
-                :colspan => 4,
-                :class => "creature_block_full_name",
-                :data => {:target_id => creature_id_string(creature)}
-            %>
+            <%= creature_name_cell(creature) %>
           </tr>
           <tr>
             <%= content_tag("td", "AC: #{creature.ac}", :class => "creature_block_defense")%>

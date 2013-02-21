@@ -83,6 +83,7 @@ div#dice_controls input {
     width: 60%;
     height: 30px;
     margin-top: 5px;
+    font-size: 1.5em;
     @include inset_input;
     vertical-align: middle;
 }
@@ -115,8 +116,8 @@ ul#rolls li {
     box-shadow: 3px 3px 3px #222;
     border: 1px solid #000;
 }
-//Add monsters styles
-div#monster_select {
+//Add monsters/players styles
+div.creature_select {
     position: fixed;
     top: 15%;
     bottom: 15%;
@@ -124,7 +125,7 @@ div#monster_select {
     right: 25%;
     @include popup_box
 }
-div#monster_select_viewing_box {
+div.creature_select_viewing_box {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -132,20 +133,20 @@ div#monster_select_viewing_box {
     bottom: 70px;
     overflow: auto;
 }
-div#monster_select_controls {
+div.creature_select_controls {
     position: absolute;
     height: 50px;
     left: 15px;
     right: 15px;
     bottom: 15px;
 }
-ul#monster_select_list {
+ul.creature_select_list {
     padding-right: 1%;
 }
-ul#monster_select_list li {
+ul.creature_select_list li {
     margin-bottom: 5px;
 }
-ul#monster_select_list .monster_name {
+ul.creature_select_list .creature_name {
     display: inline-block;
     height: 40px;
     line-height: 40px;
@@ -154,20 +155,29 @@ ul#monster_select_list .monster_name {
     @include dark_round_button_left;
     vertical-align: top;
 }
-ul#monster_select_list .monster_quantity {
+ul.creature_select_list .creature_quality {
     width: 15%;
     display: inline-block;
     height: 40px;
     @include dark_round_button_right;
 }
-ul#monster_select_list input {
+ul.creature_select_list input {
     width: 70%;
     height: 30px;
     margin-top: 5px;
     @include inset_input;
+    font-size: 1.5em;
     text-align: center;
 }
-a#add_monsters_button {
+a.add_creatures_button {
+    display: inline-block;
+    height: 50px;
+    width: 45%;
+    line-height: 50px;
+    font-size: 2em;
+    @include dark_round_button;
+}
+a.hide_add_creatures_button {
     display: inline-block;
     height: 50px;
     width: 45%;
@@ -208,6 +218,7 @@ a.add_damage_button {
 div#adding_damage_controls input {
     width: 40%;
     height: 30px;
+    font-size: 1.5em;
     @include inset_input;
     vertical-align: middle;
     text-align: center;
@@ -231,9 +242,13 @@ li.creature_block table {
 }
 td.creature_block_full_name {
     text-align: left;
-    font-size: 0.9em;
+    font-weight: bold;
     padding-left: 5px;
     cursor: pointer;
+}
+td.creature_block_full_name .highlight {
+    font-weight: normal;
+    font-size: 0.9em;
 }
 div.creature_block_descriptor {
     display: inline-block;
@@ -250,10 +265,13 @@ td.creature_block_hp {
     width: 15%;
     cursor: pointer;
 }
-td.hurt_monster_hp {
+td.temp_creature_hp {
+    color: #0F0;
+}
+td.hurt_creature_hp {
     color: #F00;
 }
-td.dead_monster_hp {
+td.dead_creature_hp {
     color: #000;
 }
 td.creature_block_defense {
@@ -265,8 +283,6 @@ td.creature_block_defense {
 li.active_creature_block {
     position: relative;
     left: -1px;
-}
-li.selected_creature_block {
     border-top: 1px solid #FFF;
     border-right: 1px solid #FFF;
     border-bottom: 1px solid #FFF;

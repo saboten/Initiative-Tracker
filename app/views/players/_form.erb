@@ -1,0 +1,27 @@
+<%= form_for @player, :html => {:class => "edit_form"} do |f|%>
+	<% if @player.errors.any? %>
+    	<div id="error_explanation">
+      		<h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved</h2>
+      	<ul>
+      		<% @player.errors.full_messages.each do |msg| %>
+        		<li><%= msg %></li>
+      		<% end %>
+      	</ul>
+    	</div>
+  	<% end %>
+	<table>
+		<tr>
+			<td colspan="3"><%= f.label :name, :class => "creature_label" %> <%= f.text_field :name, :class => "dark_input" %> </td>
+		</tr>
+		<tr>
+			<td><%= f.label :max_hp, :class => "creature_label" %> <%= f.text_field :max_hp, :size => 4, :class => "dark_centered_input" %></td>
+			<td><%= f.label :ac, :class => "creature_label" %> <%= f.text_field :ac, :size => 2, :class => "dark_centered_input" %></td>
+			<td><%= f.label :fort, :class => "creature_label" %> <%= f.text_field :fort, :size => 2, :class => "dark_centered_input" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :ref, :class => "creature_label" %> <%= f.text_field :ref, :size => 2, :class => "dark_centered_input" %></td>
+			<td><%= f.label :will, :class => "creature_label" %> <%= f.text_field :will, :size => 2, :class => "dark_centered_input" %></td>
+		</tr>
+	</table>
+  <%= f.submit "Save", :id => "save_button", :class => "dark_input"%>
+<% end %>

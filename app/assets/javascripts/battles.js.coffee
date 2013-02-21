@@ -19,13 +19,23 @@ $(document).ready ->
       cssclass  : "edit_battle_name", 
       event     : "dblclick")
 
-    $('#add_monsters_button').click((event) -> $('#monster_select_form').submit())
+    $('#show_add_monsters_button').click((event) -> $('#monster_select').css("display","block"))
+    $('#hide_add_monsters_button').click((event) -> hide_add_monsters_box())
+    $('#add_monsters_button').click((event) -> submit_add_monsters())
+    $('#show_add_players_button').click((event) -> $('#player_select').css("display","block"))
+    $('#hide_add_players_button').click((event) -> hide_add_players_box())
+    $('#add_players_button').click((event) -> submit_add_players())
+    
     $('#cancel_damage_button').click((event) -> hide_damage_box())
     $('#add_damage_button').click((event) -> update_damage_values())
     $('#roll_button').click((event) -> random_roll($('#roll_text').val()))
     $('#d20button').click((event) -> random_roll("1d20"))
 
-    $('#monster_select_form').on("ajax:success", (event, data, status, xhr) -> 
+    $('.creature_select_form').on("ajax:success", (event, data, status, xhr) -> 
+      $('#left_column').html(data)
+      initialize_initiative_list()
+    )
+    $('#sort_by_initiative_button').on("ajax:success", (event, data, status, xhr) -> 
       $('#left_column').html(data)
       initialize_initiative_list()
     )
@@ -57,7 +67,7 @@ initialize_initiative_list = ->
       $.post($("#initiative_list").data("sync-order-url"), $("#initiative_list").sortable("serialize", { expression: /(.+)[-](.+)/ })) 
   )
   $('#initiative_list').disableSelection()
-  $('.creature_block_full_name').click((event) -> set_selected_creature($(this).data('target-id')))
+  $('.monster_block_full_name').click((event) -> set_selected_creature($(this).data('target-id')))
   $('.creature_block_hp').click((event) -> update_add_damage_box($(this).data('target-id')))
   
   
@@ -93,17 +103,30 @@ hide_damage_box = ->
   $('#add_damage_text').val("")
   damaged_creature_ids = []
 
+submit_add_monsters = ->
+  $('#monster_select_form').submit()
+  hide_add_monsters_box()
+  
+hide_add_monsters_box = ->
+  $('.monster_quantity_text').val("0")
+  $('#monster_select').css("display","none")
+  
+submit_add_players = ->
+  $('#player_select_form').submit()
+  hide_add_players_box()
+  
+hide_add_players_box = ->
+  $('.player_initiative_text').val("0")
+  $('#player_select').css("display","none")
+
 random_roll = (roll_string)->
-  if $("#rolls li").length > 11
+  if $("#rolls li").length > 12
     $('#rolls li:last').remove()
   roll = parse_roll(roll_string)
   $("#rolls").prepend('<li>'+roll+'</li>')
   
 set_selected_creature = (id_string) ->
-  $("#" + selected_creature_id).removeClass('selected_creature_block').removeAttr('style')
-  selected_creature_id = id_string
-  $("#" + selected_creature_id).addClass('selected_creature_block').removeAttr('style')
-  $.get($("#" + selected_creature_id).data("url"), (data) -> 
+  $.get($("#" + id_string).data("url"), (data) -> 
     $("#selected_monster").html(data)
     $('.attack_button').click((event) -> 
       unless $('#roll_text').val() == "1d20+"+$(this).data("attack-mod")
@@ -120,7 +143,7 @@ set_selected_creature = (id_string) ->
     $('#selected_monster_full_name').editable($('#selected_monster_full_name').data('url'), 
       indicator : "Saving...", 
       tooltip   : "Double-click to edit", 
-      name      : "descriptor",
+      name      : "alias",
       id        : 'elementid',
       cssclass  : "edit_monster_descriptor", 
       event     : "dblclick"
@@ -131,13 +154,16 @@ increment_active_creature = ->
   order_array = $('#initiative_list').sortable("toArray")
   index = order_array.indexOf(active_creature_id)
   $("#" + active_creature_id).removeClass('active_creature_block').removeAttr('style')
-  if index + 1 == order_array.length
-    index = 0
-  else
-    index += 1
+  loop
+    if index + 1 == order_array.length
+      index = 0
+    else
+      index += 1
+    break if $("#" + order_array[index]).find('.creature_block_hp').html() > 0
   set_active_creature(order_array[index])
   $("#" + active_creature_id).addClass('active_creature_block').removeAttr('style')
-  set_selected_creature(active_creature_id)
+  if $("#" + active_creature_id).data('type') == "monster"
+    set_selected_creature(active_creature_id)
   
 #The active creature is the creature who's turn it is
 set_active_creature = (id_string) ->

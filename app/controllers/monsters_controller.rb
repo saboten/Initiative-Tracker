@@ -4,10 +4,10 @@ class MonstersController < ApplicationController
     render @monster
   end
   
-  def edit_descriptor
+  def edit_alias
     monster = Monster.find(params[:id])
-    monster.descriptor = params[:descriptor]
-    monster.save!
-    render :text => monster.full_name
+    monster.alias = params[:alias]
+    monster.save
+    render :text => monster.alias
   end
 end

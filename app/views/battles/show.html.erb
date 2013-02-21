@@ -10,10 +10,10 @@
   %>
   <ul id="battle_controls">
     <li><%= link_to "Back", root_path %></li>
-    <li><a href="#">Add Monster</a></li>
-    <li><a href="#">Add Player</a></li>
-    <li><a href="#">Order</a></li>
-    <li><a href="#">Remove Dead</a></li>
+    <li><a href="#" id="show_add_monsters_button">Add Monster</a></li>
+    <li><a href="#" id="show_add_players_button">Add Player</a></li>
+    <li><a href="#" id="sort_by_initiative_button">Order</a></li>
+    <li><a href="#" id="remove_dead_monsters_button">Remove Dead</a></li>
   </ul>
   <div id="dice_controls">
     <%= text_field_tag "roll_text", ""%>
@@ -29,8 +29,11 @@
 	  </ul>
 	</div>
 </div>
-<div id="monster_select" style="display:none;">
+<div id="monster_select" class="creature_select" style="display:none;">
   <%= render "monster_select_list" %>
+</div>
+<div id="player_select" class="creature_select" style="display:none;">
+  <%= render "player_select_list" %>
 </div>
 <div id="add_damage_box" style="display:none;">
   <%= render "add_damage_box" %>

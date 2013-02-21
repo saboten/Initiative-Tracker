@@ -5,4 +5,6 @@ class Monster < ActiveRecord::Base
   belongs_to :monster_template
   delegate :name, :max_hp, :ac, :fort, :ref, :will, :stat_block, :attacks, :to => :monster_template, :allow_nil => true
   
+  validates :alias, :presence => true
+  
 end
