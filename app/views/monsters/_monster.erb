@@ -12,4 +12,5 @@
     </tr>
   <% end %>
 </table>
+<%= text_area_tag :notes, @monster.notes, :data => {:update_notes_url => update_notes_path(:id => @monster.id)}%>
 <%= image_tag @monster.stat_block.url, :class => "stat_block"%>

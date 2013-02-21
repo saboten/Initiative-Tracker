@@ -10,13 +10,23 @@ ul.battle_list li {
     margin-bottom: 15px;
 }
 ul.battle_list a {
-    display: block;
+    display: inline-block;
+    text-align: center;
     height: 50px;
     line-height: 50px;
     font-size: 2em;
-    @include dark_round_button;
+    vertical-align: top;
 }
-
+ul.battle_list a.edit_link {
+    width: 90%;
+    @include dark_round_button_left;
+}
+ul.battle_list a.delete_link {
+    width: 9%;
+    font-weight: bold;
+    font-size: 3em;
+    @include dark_round_button_right;
+}
 //Battle layout styles
 div#left_column {
     position: fixed;
@@ -289,12 +299,31 @@ li.active_creature_block {
 }
 
 //Selected monster styles
+div#selected_monster {
+    text-align: center;
+}
 div#selected_monster_full_name {
     font-size: 2em;
     font-weight: bold;
     color: #222;
     text-shadow: 0px 1px 1px #555;
     text-align: center;
+}
+.edit_monster_descriptor input {
+    font-size: 0.8em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    @include inset_input;
+    text-align: center;
+}
+textarea#notes {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    @include inset_input;
+    padding: 5px;
+    margin-bottom: 10px;
 }
 table#selected_monster_attacks {
     margin-top: 5px;

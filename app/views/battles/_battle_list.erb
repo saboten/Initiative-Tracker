@@ -3,7 +3,10 @@
 <% else %>
 	<ul class="battle_list">
 		<% @battles.each do |b| %>
-			<li><%= link_to b.name, battle_path(:id => b.id) %></li>
+			<li>
+			  <%= link_to b.name,  battle_path(:id => b.id), :class => "edit_link" %>
+				<%= link_to "-", b, :confirm => 'Are you sure?', :method => :delete, :class => "delete_link" %>
+			</li>
 		<% end %>
 	</ul>
 <% end %>

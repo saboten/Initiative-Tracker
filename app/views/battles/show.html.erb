@@ -12,7 +12,7 @@
     <li><%= link_to "Back", root_path %></li>
     <li><a href="#" id="show_add_monsters_button">Add Monster</a></li>
     <li><a href="#" id="show_add_players_button">Add Player</a></li>
-    <li><a href="#" id="sort_by_initiative_button">Order</a></li>
+    <li><%= link_to "Order", order_by_initiative_path(:id => @battle.id), :remote => true, "data-type" => "html", :id => "sort_by_initiative_button"%></li>
     <li><a href="#" id="remove_dead_monsters_button">Remove Dead</a></li>
   </ul>
   <div id="dice_controls">

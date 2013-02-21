@@ -5,6 +5,7 @@
 active_creature_id = null
 selected_creature_id = null
 damaged_creature_ids = []
+heal_check = false
 
 $(document).ready ->
   if $('body.battles_show').length > 0
@@ -34,10 +35,12 @@ $(document).ready ->
     $('.creature_select_form').on("ajax:success", (event, data, status, xhr) -> 
       $('#left_column').html(data)
       initialize_initiative_list()
+      initialize_active_creature()
     )
     $('#sort_by_initiative_button').on("ajax:success", (event, data, status, xhr) -> 
       $('#left_column').html(data)
       initialize_initiative_list()
+      initialize_active_creature()
     )
 
     $('#roll_text').keydown((event) -> 
@@ -51,8 +54,23 @@ $(document).ready ->
         update_damage_values()
     )
     $(document).keydown((event) ->
-      if event.target.nodeName == "INPUT"
+      if event.target.nodeName == "INPUT" or event.target.nodeName == "TEXTAREA"
         return
+      
+      if event.which != 67
+        heal_check = false
+      else
+        if heal_check == true
+          event.preventDefault()
+          heal_active_creature()
+          
+      if event.which == 82
+        event.preventDefault()
+        $('#roll_text').focus()
+        
+      if event.which == 72
+        event.preventDefault()
+        heal_check = true
     
       if event.which == 32
         event.preventDefault()
@@ -126,29 +144,40 @@ random_roll = (roll_string)->
   $("#rolls").prepend('<li>'+roll+'</li>')
   
 set_selected_creature = (id_string) ->
-  $.get($("#" + id_string).data("url"), (data) -> 
-    $("#selected_monster").html(data)
-    $('.attack_button').click((event) -> 
-      unless $('#roll_text').val() == "1d20+"+$(this).data("attack-mod")
-        $('#roll_text').val("1d20+"+$(this).data("attack-mod"))
-      else
-        random_roll($('#roll_text').val())
+  if $("#" + id_string).data('type') == "monster"
+    $.get($("#" + id_string).data("url"), (data) -> 
+      $("#selected_monster").html(data)
+      $('.attack_button').click((event) -> 
+        unless $('#roll_text').val() == "1d20+"+$(this).data("attack-mod")
+          $('#roll_text').val("1d20+"+$(this).data("attack-mod"))
+        else
+          random_roll($('#roll_text').val())
+      )
+      $('.damage_button').click((event) ->
+        unless $('#roll_text').val() == $(this).html()
+          $('#roll_text').val($(this).html())
+        else 
+          random_roll($('#roll_text').val())
+      )
+      $('#selected_monster_full_name').editable($('#selected_monster_full_name').data('url'), 
+        indicator : "Saving...", 
+        tooltip   : "Double-click to edit", 
+        name      : "alias",
+        id        : 'elementid',
+        cssclass  : "edit_monster_descriptor", 
+        event     : "dblclick"
+      )
+      $('#notes').change( ->
+        $.post($('#notes').data('update-notes-url'), {notes: $('#notes').val()})
+      )
     )
-    $('.damage_button').click((event) ->
-      unless $('#roll_text').val() == $(this).html()
-        $('#roll_text').val($(this).html())
-      else 
-        random_roll($('#roll_text').val())
+
+heal_active_creature = ->
+  if active_creature_id?
+    $.post($('#initiative_list').data("heal-url"), {id_string: active_creature_id}, (data) ->
+      $('#left_column').html(data)
+      initialize_initiative_list()
     )
-    $('#selected_monster_full_name').editable($('#selected_monster_full_name').data('url'), 
-      indicator : "Saving...", 
-      tooltip   : "Double-click to edit", 
-      name      : "alias",
-      id        : 'elementid',
-      cssclass  : "edit_monster_descriptor", 
-      event     : "dblclick"
-    )
-  )
   
 increment_active_creature = ->
   order_array = $('#initiative_list').sortable("toArray")
@@ -162,8 +191,7 @@ increment_active_creature = ->
     break if $("#" + order_array[index]).find('.creature_block_hp').html() > 0
   set_active_creature(order_array[index])
   $("#" + active_creature_id).addClass('active_creature_block').removeAttr('style')
-  if $("#" + active_creature_id).data('type') == "monster"
-    set_selected_creature(active_creature_id)
+  set_selected_creature(active_creature_id)
   
 #The active creature is the creature who's turn it is
 set_active_creature = (id_string) ->

@@ -18,6 +18,13 @@ class BattlesController < ApplicationController
     #TODO Add battle-not-found code here
   end
   
+  def destroy
+    @battle = Battle.find(params[:id])
+    @battle.destroy
+    flash[:notice] = "Successfully destroyed battle"
+    redirect_to root_path
+  end
+  
   def edit_name
     battle = Battle.find(params[:id])
     battle.name = params[:name]
@@ -56,6 +63,7 @@ class BattlesController < ApplicationController
         end
       end
     end
+    @battle.active_creature = "creatures-" + @battle.initiative_order.first if @battle.active_creature.nil?
     @battle.save
     render :partial => "initiative_order"
   end
@@ -72,6 +80,7 @@ class BattlesController < ApplicationController
         @battle.initiative_order.push("player_" + player.id.to_s)
       end
     end
+    @battle.active_creature = "creatures-" + @battle.initiative_order.first if @battle.active_creature.nil?
     @battle.save
     render :partial => "initiative_order"
   end
@@ -79,14 +88,14 @@ class BattlesController < ApplicationController
   def sync_order
     @battle = Battle.find(params[:id])
     @battle.initiative_order = params[:creatures]
-    @battle.save!
+    @battle.save
     render :nothing => true
   end
   
   def update_active_creature
     @battle = Battle.find(params[:id])
     @battle.active_creature = params[:active_creature]
-    @battle.save!
+    @battle.save
     render :nothing => true
   end
   
@@ -98,6 +107,28 @@ class BattlesController < ApplicationController
       creature.current_hp -= damage
       creature.save!
     end
+    render :partial => "initiative_order"
+  end
+  
+  def order_by_initiative
+    @battle = Battle.find(params[:id])
+    new_order = []
+    sorted_order = @battle.order.sort {|x,y| y.initiative <=> x.initiative}
+    sorted_order.each do |c|
+      new_order.push("monster_" + c.id.to_s) if c.is_a? Monster
+      new_order.push("player_" + c.id.to_s) if c.is_a? Player
+    end
+    @battle.initiative_order = new_order
+    @battle.active_creature = "creatures-" + new_order.first
+    @battle.save
+    render :partial => "initiative_order"
+  end
+  
+  def full_heal_creature
+    @battle = Battle.find(params[:id])
+    creature = get_creature_from_id(params[:id_string])
+    creature.current_hp = creature.max_hp
+    creature.save
     render :partial => "initiative_order"
   end
   

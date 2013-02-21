@@ -3,6 +3,7 @@
     :data => {:sync_order_url => sync_order_path(:id => @battle.id),
               :update_active_creature_url => update_active_creature_path(:id => @battle.id),
               :update_damage_url => update_damage_path(:id => @battle.id),
+              :heal_url => full_heal_creature_path(:id => @battle.id),
               :active_creature => @battle.active_creature.nil? ? "none" : @battle.active_creature} do
 %>
   <% @battle.order.each do |creature|%>

@@ -10,4 +10,11 @@ class MonstersController < ApplicationController
     monster.save
     render :text => monster.alias
   end
+  
+  def update_notes
+    monster = Monster.find(params[:id])
+    monster.notes = params[:notes]
+    monster.save
+    render :nothing => true
+  end
 end

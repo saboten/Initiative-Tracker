@@ -24,20 +24,23 @@ module BattlesHelper
   end
   
   def creature_list_item_data(creature)
-    return {:url => monster_path(:id => creature.id), :full_name => creature.alias, :type => "monster"} if creature.is_a? Monster
-    return {:full_name => creature.name, :type => "player"} if creature.is_a? Player
+    return {:url => monster_path(:id => creature.id), 
+            :full_name => creature.alias, 
+            :type => "monster"} if creature.is_a? Monster
+    return {:full_name => creature.name, 
+            :type => "player"} if creature.is_a? Player
   end
   
   def creature_name_cell(creature)
-    return content_tag "td",
-    highlight(creature.alias,creature.name),
-    :colspan => 4,
-    :class => "creature_block_full_name monster_block_full_name",
-    :data => {:target_id => creature_id_string(creature)} if creature.is_a? Monster
-    return content_tag "td",
-    creature.name,
-    :colspan => 4,
-    :class => "creature_block_full_name player_block_full_name",
-    :data => {:target_id => creature_id_string(creature)} if creature.is_a? Player
+    return  content_tag "td",
+            highlight(creature.alias,creature.name),
+            :colspan => 4,
+            :class => "creature_block_full_name monster_block_full_name",
+            :data => {:target_id => creature_id_string(creature)} if creature.is_a? Monster
+    return  content_tag "td",
+            "* " + creature.name,
+            :colspan => 4,
+            :class => "creature_block_full_name player_block_full_name",
+            :data => {:target_id => creature_id_string(creature)} if creature.is_a? Player
   end
 end
