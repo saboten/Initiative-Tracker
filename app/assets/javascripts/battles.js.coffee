@@ -141,7 +141,12 @@ random_roll = (roll_string)->
   if $("#rolls li").length > 12
     $('#rolls li:last').remove()
   roll = parse_roll(roll_string)
-  $("#rolls").prepend('<li>'+roll+'</li>')
+  tag = '<li>'
+  if roll.crit_hit
+    tag = '<li style="color: #0F0;">'
+  if roll.crit_miss
+    tag = '<li style="color: #F00;">'
+  $("#rolls").prepend(tag+roll.sum+'</li>')
   
 set_selected_creature = (id_string) ->
   if $("#" + id_string).data('type') == "monster"
@@ -200,6 +205,8 @@ set_active_creature = (id_string) ->
   
 parse_roll = (roll_string)->
   sum = 0
+  crit_hit = false
+  crit_miss = false
   separated_rolls = roll_string.split("+")
   
   for roll in separated_rolls
@@ -209,9 +216,14 @@ parse_roll = (roll_string)->
       multiplier = split_roll[0]
       die_size = split_roll[1]
       for i in [0...multiplier] by 1
-        sum += Math.floor((Math.random()*die_size)+1)
+        single_roll = Math.floor((Math.random()*die_size)+1)
+        if single_roll == 20 and die_size == "20"
+          crit_hit = true
+        if single_roll == 1 and die_size == "20"
+          crit_miss = true
+        sum += single_roll
         
     if split_roll.length == 1
       sum += parseInt(split_roll[0])
       
-  return sum
+  return {'sum': sum, 'crit_hit': crit_hit, 'crit_miss': crit_miss}
