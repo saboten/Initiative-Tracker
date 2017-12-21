@@ -1,0 +1,36 @@
+<%= content_tag "ul", 
+    :id => "present_players_list", 
+    :data => { :update_selected_players_url => update_selected_players_path } do
+%>
+  <% @skill_challenge.player_array.each do |player|%>
+    <%= content_tag "li", 
+        :class => "creature_block", 
+        :id => "player_" + player.id.to_s do%>
+        <table>
+          <tr>
+            <%= content_tag "td",
+                "0",
+                :rowspan => 2,
+                :class => "creature_block_hp",
+                :data => {:target_id => player.id} 
+            %>
+            <%= content_tag "td",
+            player.name,
+            :colspan => 3,
+            :class => "creature_block_full_name player_block_full_name",
+            :data => {:target_id => player.id} %>
+			<%= content_tag "td",
+			"X",
+			:class => "remove_creature_button",
+			:data => {:url => remove_player_from_skill_challenge_path(player.id)} %>
+          </tr>
+          <tr>
+            <%= content_tag("td", "AC: #{player.ac}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Fort: #{player.fort}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Ref: #{player.ref}", :class => "creature_block_defense")%>
+            <%= content_tag("td", "Will: #{player.will}", :class => "creature_block_defense")%>
+          </tr>
+        </table>       
+    <% end %>
+  <% end %>
+<% end %>

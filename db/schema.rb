@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206190300) do
+ActiveRecord::Schema.define(:version => 20130620174604) do
 
   create_table "attacks", :force => true do |t|
     t.string   "name"
@@ -67,8 +67,38 @@ ActiveRecord::Schema.define(:version => 20130206190300) do
     t.integer  "current_hp"
     t.integer  "max_hp"
     t.integer  "initiative"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "str"
+    t.integer  "con"
+    t.integer  "dex"
+    t.integer  "int"
+    t.integer  "wis"
+    t.integer  "cha"
+    t.integer  "acrobatics"
+    t.integer  "arcana"
+    t.integer  "athletics"
+    t.integer  "bluff"
+    t.integer  "diplomacy"
+    t.integer  "dungeoneering"
+    t.integer  "endurance"
+    t.integer  "heal"
+    t.integer  "history"
+    t.integer  "insight"
+    t.integer  "intimidate"
+    t.integer  "nature"
+    t.integer  "perception"
+    t.integer  "religion"
+    t.integer  "stealth"
+    t.integer  "streetwise"
+    t.integer  "thievery"
+  end
+
+  create_table "skill_challenges", :force => true do |t|
+    t.text     "present_players"
+    t.text     "selected_players"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

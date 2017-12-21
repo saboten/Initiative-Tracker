@@ -1,0 +1,14 @@
+// Place all the styles related to the skill_challenge controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+div.skill_challenge_title {
+    font-size: 3em;
+    font-weight: bold;
+    color: #222;
+    text-shadow: 0px 1px 1px #555;
+    text-align: center;
+}
+td.remove_creature_button {
+    text-align: right;
+    cursor: pointer;
+}

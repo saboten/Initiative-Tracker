@@ -13,6 +13,7 @@
 		</div>
 		<ul id="banner_button_row">
 			<li><%= link_to "New Battle", new_battle_path, :id => "new_battle_button", :class => "banner_button" %></li>
+			<li><%= link_to "Skill Challenge", skill_challenge_path, :id => "skill_challenge_button", :class => "banner_button" %></li>
 			<% unless current_page?(root_path) %>
 				<li><%= link_to "Battle List", root_path, :id => "battle_list_button", :class => "banner_button" %></li>
 			<% end %>

@@ -1,0 +1,31 @@
+<div id="left_column">
+	<%= render "present_players"%>
+</div>
+<div id="center_column">
+  <%= content_tag "div", 
+      "Skill Challenge", 
+      :class => "skill_challenge_title"
+  %>
+  <ul id="battle_controls">
+    <li><%= link_to "Back", root_path %></li>
+    <li><a href="#" id="show_add_players_button">Add Players</a></li>
+	<li><a href="#" id="select_all_button">Select All</a></li>
+	<li><a href="#" id="select_none_button">Select None</a></li>
+  </ul>
+  <div id="dice_controls">
+    <%= text_field_tag "roll_text", ""%>
+    <a href="#" id="roll_button" class="dice_button">Roll</a>
+    <a href="#" id="d20button" class="dice_button">1d20</a>
+  </div>
+	<div id="selected_monster">
+	</div>
+</div>
+<div id="right_column">
+  <div id="roll_container">
+	  <ul id="rolls">
+	  </ul>
+	</div>
+</div>
+<div id="player_select" class="creature_select" style="display:none;">
+  <%= render "player_select_list" %>
+</div>

@@ -12,11 +12,18 @@ InitiativeTracker::Application.routes.draw do
   post "/battles/:id/edit_name" => 'battles#edit_name', :as => :edit_battle_name
   post "/battles/:id/add_monsters" => 'battles#add_monsters', :as => :add_monsters
   post "/battles/:id/add_players" => 'battles#add_players', :as => :add_players
+  post "/battles/:id/remove_creature" => 'battles#remove_creature', :as => :remove_creature
   post "/battles/:id/sync_order" => 'battles#sync_order', :as => :sync_order
   post "/battles/:id/update_active_creature" => 'battles#update_active_creature', :as => :update_active_creature
   post "/battles/:id/update_damage" => 'battles#update_damage', :as => :update_damage
   get "/battles/:id/order_by_initiative" => 'battles#order_by_initiative', :as => :order_by_initiative
   post "/battles/:id/full_heal_creature" => 'battles#full_heal_creature', :as => :full_heal_creature
+  
+  #Skill Challenge routes
+  get "/skill_challenge" => 'skill_challenge#index', :as => :skill_challenge
+  post "/skill_challenge/add_players" => 'skill_challenge#add_players', :as => :add_players_to_skill_challenge
+  get "/skill_challenge/remove_player/:id" => 'skill_challenge#remove_player', :as => :remove_player_from_skill_challenge
+  post "/skill_challenge/update_selected_players" => 'skill_challenge#update_selected_players', :as => :update_selected_players
   
   #Monster routes
   resources :monsters

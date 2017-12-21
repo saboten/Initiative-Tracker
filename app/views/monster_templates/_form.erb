@@ -1,14 +1,4 @@
-<%= form_for @monster_template, :html => {:class => "edit_form"} do |f|%>
-	<% if @monster_template.errors.any? %>
-    	<div id="error_explanation">
-      		<h2><%= pluralize(@monster_template.errors.count, "error") %> prohibited this monster from being saved</h2>
-      	<ul>
-      		<% @monster_template.errors.full_messages.each do |msg| %>
-        		<li><%= msg %></li>
-      		<% end %>
-      	</ul>
-    	</div>
-  	<% end %>
+ <%= form_for @monster_template, :html => {:class => "edit_form"} do |f|%>
 	<table>
 		<tr>
 			<td colspan="3"><%= f.label :name, :class => "creature_label" %> <%= f.text_field :name, :class => "dark_input" %> </td>
